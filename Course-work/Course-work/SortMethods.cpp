@@ -3,10 +3,6 @@
 
 using namespace std;
 
-//template <typename T>
-bool compare(int a, int b) { return a < b; }
-
-//template <typename T>
 void selectionSort(int *Array, int size) {
 	for (int i = 0; i < size; i++) {
 		int index = i;
@@ -35,7 +31,55 @@ void shellSort(int *Array, int size) {
 	}
 }
 
-//template <typename T>
+void down(int *Array, int Size, int i)
+{
+	while (2 * i + 1 < Size)
+	{
+		if (2 * i + 2 >= Size)
+		{
+			if (Array[i] <= Array[2 * i + 1])
+			{
+				swap(Array[i], Array[2 * i + 1]);
+				i = 2 * i + 1;
+				break;
+			}
+		}
+		else
+		{
+			if (Array[2 * i + 1] > Array[2 * i + 2] && Array[i] < Array[2 * i + 1])
+			{
+				swap(Array[i], Array[2 * i + 1]);
+				i = 2 * i + 1;
+				continue;
+			}
+			if (Array[2 * i + 1] <= Array[2 * i + 2] && Array[i] < Array[2 * i + 2])
+			{
+				swap(Array[i], Array[2 * i + 2]);
+				i = 2 * i + 2;
+				continue;
+			}
+		}
+		break;
+	}
+}
+
+void heapSort(int *Array, int Size)
+{
+	int k = Size / 2 - 1, i = Size;
+	while (k != -1)
+	{
+		down(Array, Size, k);
+		k--;
+	}
+	Size--;
+	while (Size != 0)
+	{
+		swap(Array[0], Array[Size]);
+		down(Array, Size, 0);
+		Size--;
+	}
+}
+
 void fillingArray(int *Array, int size) {
 	srand(time(NULL));
 	for (int i = 0; i < size; i++) {
@@ -43,7 +87,6 @@ void fillingArray(int *Array, int size) {
 	}
 }
 
-//template <typename T>
 void showArray(int *Array, int size) {
 	for (int i = 0; i < size; i++) {
 		cout << Array[i] << " ";
