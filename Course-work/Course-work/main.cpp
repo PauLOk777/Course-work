@@ -10,7 +10,8 @@ int main() {
 	
 	Array = chooseAction(size);
 	chooseMethod(Array, size);
-	
+	writeFile(Array, size);
+
 	delete[] Array;
 	system("pause");
 	return 0;

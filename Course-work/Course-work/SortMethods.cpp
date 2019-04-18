@@ -152,7 +152,7 @@ void manuallyFillingArray(int *Array, int size) {
 	}
 }
 
-istream& openFile(ifstream &fin, string name) {
+istream& openFileINPUT(ifstream &fin, string name) {
 	fin.open(name);
 	if (!fin.is_open()) {
 		cout << "Error, we dont find this file.";
@@ -174,6 +174,17 @@ istream& readSize(ifstream &fin, string &buff, int &size) {
 	}
 	size = counter + 1;
 	return fin;
+}
+
+ostream& openFileOUTPUT(ofstream &fout, string name) {
+	fout.open(name);
+	if (!fout.is_open()) {
+		cout << "Error." << endl;
+		system("pause");
+		exit(1);
+	}
+	cout << "File was opened(created)." << endl;
+	return fout;
 }
 
 void fileFillingArray(string buff, int *Array, int size) {
@@ -232,7 +243,7 @@ int *chooseAction(int &size) {
 			string name, buff;
 			cout << "Input name of the file: ";
 			cin >> name;
-			openFile(fin, name);
+			openFileINPUT(fin, name);
 			readSize(fin, buff, size);
 			delete[] Array;
 			Array = new int[size];
@@ -261,5 +272,23 @@ int *chooseAction(int &size) {
 		}
 		cout << "Enter 1, 2 or 3, please." << endl;
 		cin >> num;
+	}
+}
+
+void writeFile(int *Array, int size) {
+	int temp;
+	cout << "Do you wanna write array to file? If yes press 1, no - any number: ";
+	cin >> temp;
+	if (temp == 1) {
+		ofstream fout;
+		string name, buff = "";
+		cout << "Input file name: "; cin >> name;
+		openFileOUTPUT(fout, name);
+		for (int i = 0; i < size - 1; i++) {
+			buff += to_string(Array[i]) + ',';
+		}
+		buff += to_string(Array[size - 1]);
+		fout << buff;
+		fout.close();
 	}
 }
