@@ -130,10 +130,10 @@ void heapSort(int *Array, int Size, int compare)
 	}
 }
 
-void randomFillingArray(int *Array, int size) {
+void randomFillingArray(int *Array, int size, int begin, int end) {
 	srand(time(NULL));
 	for (int i = 0; i < size; i++) {
-		Array[i] = rand() % (size * 10) + 1;
+		Array[i] = rand() % (end - begin + 1) + begin;
 	}
 }
 
@@ -145,6 +145,7 @@ void showArray(int *Array, int size) {
 }
 
 void manuallyFillingArray(int *Array, int size) {
+	cout << "Input your elements: " << endl;
 	for (int i = 0; i < size; i++) {
 		cin >> Array[i];
 	}
@@ -186,5 +187,34 @@ void fileFillingArray(string buff, int *Array, int size) {
 			index++;
 			temp = "";
 		}
+	}
+	Array[index] = stoi(temp);
+}
+
+void chooseMethod(int *Array, int size) {
+	int temp, compare;
+	cout << "Input which method you wanna use:" << endl << "1. Insertion." << endl;
+	cout << "2. Shell sort." << endl << "3. Heap sort." << endl;
+	cout << "Input number of method: "; cin >> temp;
+	cout << "Enter 1 if you wanna sorted from smaller to larger, else press any number: ";
+	cin >> compare;
+	while (true) {
+		if (temp == 1) {
+			selectionSort(Array, size, compare);
+			showArray(Array, size);
+			break;
+		}
+		if (temp == 2) {
+			shellSort(Array, size, compare);
+			showArray(Array, size);
+			break;
+		}
+		if (temp == 3) {
+			heapSort(Array, size, compare);
+			showArray(Array, size);
+			break;
+		}
+		cout << "Input 1 or 2 or 3 please." << endl;
+		cin >> temp;
 	}
 }
