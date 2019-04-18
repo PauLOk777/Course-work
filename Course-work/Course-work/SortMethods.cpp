@@ -183,7 +183,7 @@ ostream& openFileOUTPUT(ofstream &fout, string name) {
 		system("pause");
 		exit(1);
 	}
-	cout << "File was opened(created)." << endl;
+	cout << "File was opened (created)." << endl;
 	return fout;
 }
 
@@ -254,7 +254,12 @@ int *chooseAction(int &size) {
 		}
 		if (num == 2) {
 			int begin, end;
-			cout << "Input size of array: "; cin >> size;
+			while (true) {
+				cout << "Input size of array (positive number): "; cin >> size;
+				if (size > 0) {
+					break;
+				}
+			}
 			delete[] Array;
 			Array = new int[size];
 			cout << "Input range(2 numbers): "; cin >> begin >> end;
@@ -263,7 +268,12 @@ int *chooseAction(int &size) {
 			return Array;
 		}
 		if (num == 3) {
-			cout << "Input size of array: "; cin >> size;
+			while (true) {
+				cout << "Input size of array (positive number): "; cin >> size;
+				if (size > 0) {
+					break;
+				}
+			}
 			delete[] Array;
 			Array = new int[size];
 			manuallyFillingArray(Array, size);
