@@ -1,5 +1,7 @@
 #include <iostream>
 #include <ctime>
+#include <fstream>
+#include <string>
 
 using namespace std;
 
@@ -51,10 +53,10 @@ void shellSort(int *Array, int size, int compare) {
 }
 
 void down(int *Array, int Size, int i, int compare)
-{
+{	
 	while (2 * i + 1 < Size)
 	{
-		if (compare == 1) {
+		if (compare != 1) {
 			if (2 * i + 2 >= Size)
 			{
 				if (Array[i] >= Array[2 * i + 1])
@@ -105,8 +107,8 @@ void down(int *Array, int Size, int i, int compare)
 					i = 2 * i + 2;
 					continue;
 				}
-			break;
 			}
+			break;
 		}
 	}
 }
@@ -128,7 +130,7 @@ void heapSort(int *Array, int Size, int compare)
 	}
 }
 
-void fillingArray(int *Array, int size) {
+void randomFillingArray(int *Array, int size) {
 	srand(time(NULL));
 	for (int i = 0; i < size; i++) {
 		Array[i] = rand() % (size * 10) + 1;
@@ -140,4 +142,49 @@ void showArray(int *Array, int size) {
 		cout << Array[i] << " ";
 	}
 	cout << endl;
+}
+
+void manuallyFillingArray(int *Array, int size) {
+	for (int i = 0; i < size; i++) {
+		cin >> Array[i];
+	}
+}
+
+istream& openFile(ifstream &fin, string name) {
+	fin.open(name);
+	if (!fin.is_open()) {
+		cout << "Error, we dont find this file.";
+		system("pause");
+		exit(1);
+	}
+	cout << "Input file is opened." << endl;
+	return fin;
+}
+
+istream& readSize(ifstream &fin, string &buff, int &size) {
+	int counter = 0;
+	buff = "";
+	getline(fin, buff);
+	for (int i = 0; i < buff.length(); i++) {
+		if (buff[i] == ',') {
+			counter++;
+		}
+	}
+	size = counter + 1;
+	return fin;
+}
+
+void fileFillingArray(string buff, int *Array, int size) {
+	string temp = "";
+	int index = 0;
+	for (int i = 0; i < buff.length(); i++) {
+		if (buff[i] != ',') {
+			temp += buff[i];
+		}
+		else {
+			Array[index] = stoi(temp);
+			index++;
+			temp = "";
+		}
+	}
 }
