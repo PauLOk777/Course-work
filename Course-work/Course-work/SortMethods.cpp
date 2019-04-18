@@ -2,6 +2,7 @@
 #include <ctime>
 #include <fstream>
 #include <string>
+#include <cmath>
 
 using namespace std;
 
@@ -133,7 +134,7 @@ void heapSort(int *Array, int Size, int compare)
 void randomFillingArray(int *Array, int size, int begin, int end) {
 	srand(time(NULL));
 	for (int i = 0; i < size; i++) {
-		Array[i] = rand() % (end - begin + 1) + begin;
+		Array[i] = rand() % abs(end - begin + 1) + begin;
 	}
 }
 
@@ -216,5 +217,49 @@ void chooseMethod(int *Array, int size) {
 		}
 		cout << "Input 1 or 2 or 3 please." << endl;
 		cin >> temp;
+	}
+}
+
+int *chooseAction(int &size) {
+	int num;
+	int *Array = new int[size];
+	cout << "Enter the number what do you want to do:" << endl;
+	cout << "1. Read from file." << endl << "2. Random fill array." << endl;
+	cout << "3. Manually fill array." << endl; cin >> num;
+	while (true) {
+		if (num == 1) {
+			ifstream fin;
+			string name, buff;
+			cout << "Input name of the file: ";
+			cin >> name;
+			openFile(fin, name);
+			readSize(fin, buff, size);
+			delete[] Array;
+			Array = new int[size];
+			fileFillingArray(buff, Array, size);
+			showArray(Array, size);
+			fin.close();
+			return Array;
+		}
+		if (num == 2) {
+			int begin, end;
+			cout << "Input size of array: "; cin >> size;
+			delete[] Array;
+			Array = new int[size];
+			cout << "Input range(2 numbers): "; cin >> begin >> end;
+			randomFillingArray(Array, size, begin, end);
+			showArray(Array, size);
+			return Array;
+		}
+		if (num == 3) {
+			cout << "Input size of array: "; cin >> size;
+			delete[] Array;
+			Array = new int[size];
+			manuallyFillingArray(Array, size);
+			showArray(Array, size);
+			return Array;
+		}
+		cout << "Enter 1, 2 or 3, please." << endl;
+		cin >> num;
 	}
 }

@@ -14,3 +14,4 @@ istream& readSize(ifstream &, string &, int &);
 void fileFillingArray(string, int *, int);
 void chooseMethod(int *Array, int size);
 void manuallyFillingArray(int *Array, int size);
+int *chooseAction(int &);
