@@ -6,10 +6,10 @@
 
 using namespace std;
 
-void selectionSort(int *Array, int size, int compare) {
+void selectionSort(double *Array, int size, int compare) {
 	for (int i = 0; i < size; i++) {
 		int index = i;
-		int temp_1 = Array[i];
+		double temp_1 = Array[i];
 		if (compare == 1) {
 			for (int j = i; j < size; j++) {
 				if (temp_1 > Array[j]) {
@@ -26,13 +26,13 @@ void selectionSort(int *Array, int size, int compare) {
 				}
 			}
 		}
-		int temp_2 = temp_1;
+		double temp_2 = temp_1;
 		Array[index] = Array[i];
 		Array[i] = temp_1;
 	}
 }
 
-void shellSort(int *Array, int size, int compare) {
+void shellSort(double *Array, int size, int compare) {
 	for (int i = (size - 1) / 2; i > 0; i/=2) {
 		for (int j = i; j != size; j++) {
 			if (compare == 1) {
@@ -53,7 +53,7 @@ void shellSort(int *Array, int size, int compare) {
 	}
 }
 
-void down(int *Array, int Size, int i, int compare)
+void down(double *Array, int Size, int i, int compare)
 {	
 	while (2 * i + 1 < Size)
 	{
@@ -114,7 +114,7 @@ void down(int *Array, int Size, int i, int compare)
 	}
 }
 
-void heapSort(int *Array, int Size, int compare)
+void heapSort(double *Array, int Size, int compare)
 {
 	int k = Size / 2 - 1, i = Size;
 	while (k != -1)
@@ -131,21 +131,34 @@ void heapSort(int *Array, int Size, int compare)
 	}
 }
 
-void randomFillingArray(int *Array, int size, int begin, int end) {
+void randomFillingArray(double *Array, int size, double begin, double end) {
 	srand(time(NULL));
-	for (int i = 0; i < size; i++) {
-		Array[i] = rand() % abs(end - begin + 1) + begin;
+	int number;
+	cout << "You want to fill array with integers or valid numbers?" << endl;
+	cout << "If with integers press 1, with valid press any number."; cin >> number;
+	int newBegin = begin * 10;
+	int newEnd = end * 10;
+	if (number != 1) {
+		for (int i = 0; i < size; i++) {
+			double newRandom = rand() % (newEnd - newBegin) + newBegin;
+			Array[i] = newRandom / 10;
+		}
+	}
+	else {
+		for (int i = 0; i < size; i++) {
+			Array[i] = rand() % (newEnd - newBegin + 1) + newBegin;
+		}
 	}
 }
 
-void showArray(int *Array, int size) {
+void showArray(double *Array, int size) {
 	for (int i = 0; i < size; i++) {
 		cout << Array[i] << " ";
 	}
 	cout << endl;
 }
 
-void manuallyFillingArray(int *Array, int size) {
+void manuallyFillingArray(double *Array, int size) {
 	cout << "Input your elements: " << endl;
 	for (int i = 0; i < size; i++) {
 		cin >> Array[i];
@@ -187,7 +200,7 @@ ostream& openFileOUTPUT(ofstream &fout, string name) {
 	return fout;
 }
 
-void fileFillingArray(string buff, int *Array, int size) {
+void fileFillingArray(string buff, double *Array, int size) {
 	string temp = "";
 	int index = 0;
 	for (int i = 0; i < buff.length(); i++) {
@@ -203,7 +216,7 @@ void fileFillingArray(string buff, int *Array, int size) {
 	Array[index] = stoi(temp);
 }
 
-void chooseMethod(int *Array, int size) {
+void chooseMethod(double *Array, int size) {
 	int temp, compare;
 	cout << "Input which method you wanna use:" << endl << "1. Insertion." << endl;
 	cout << "2. Shell sort." << endl << "3. Heap sort." << endl;
@@ -231,9 +244,9 @@ void chooseMethod(int *Array, int size) {
 	}
 }
 
-int *chooseAction(int &size) {
+double *chooseAction(int &size) {
 	int num;
-	int *Array = new int[size];
+	double *Array = new double[size];
 	cout << "Enter the number what do you want to do:" << endl;
 	cout << "1. Read from file." << endl << "2. Random fill array." << endl;
 	cout << "3. Manually fill array." << endl; cin >> num;
@@ -246,14 +259,14 @@ int *chooseAction(int &size) {
 			openFileINPUT(fin, name);
 			readSize(fin, buff, size);
 			delete[] Array;
-			Array = new int[size];
+			Array = new double[size];
 			fileFillingArray(buff, Array, size);
 			showArray(Array, size);
 			fin.close();
 			return Array;
 		}
 		if (num == 2) {
-			int begin, end;
+			double begin, end;
 			while (true) {
 				cout << "Input size of array (positive number): "; cin >> size;
 				if (size > 0) {
@@ -261,7 +274,7 @@ int *chooseAction(int &size) {
 				}
 			}
 			delete[] Array;
-			Array = new int[size];
+			Array = new double[size];
 			cout << "Input range(2 numbers): "; cin >> begin >> end;
 			randomFillingArray(Array, size, begin, end);
 			showArray(Array, size);
@@ -275,7 +288,7 @@ int *chooseAction(int &size) {
 				}
 			}
 			delete[] Array;
-			Array = new int[size];
+			Array = new double[size];
 			manuallyFillingArray(Array, size);
 			showArray(Array, size);
 			return Array;
@@ -285,7 +298,7 @@ int *chooseAction(int &size) {
 	}
 }
 
-void writeFile(int *Array, int size) {
+void writeFile(double *Array, int size) {
 	int temp;
 	cout << "Do you wanna write array to file? If yes press 1, no - any number: ";
 	cin >> temp;

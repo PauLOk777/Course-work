@@ -6,7 +6,8 @@
 using namespace std;
 
 int main() {
-	int size = 1, *Array;
+	int size = 1;
+	double *Array;
 	
 	Array = chooseAction(size);
 	chooseMethod(Array, size);
