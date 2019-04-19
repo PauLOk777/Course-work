@@ -208,12 +208,12 @@ void fileFillingArray(string buff, double *Array, int size) {
 			temp += buff[i];
 		}
 		else {
-			Array[index] = stoi(temp);
+			Array[index] = stod(temp);
 			index++;
 			temp = "";
 		}
 	}
-	Array[index] = stoi(temp);
+	Array[index] = stod(temp);
 }
 
 void chooseMethod(double *Array, int size) {
